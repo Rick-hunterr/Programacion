@@ -1,0 +1,1133 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Gestión de Negocio</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="scripts.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/js/all.min.js"> </script>
+</head>
+
+<body class="ThemeDarkForest">
+
+    <!-- panel de Navigation -->
+    <aside class="sidebar">
+        <div class="logo">
+            <h2>GestiónApp</h2>
+        </div>
+        <nav>
+            <ul class="menu">
+                <li class="active" data-tab="dashboard">
+                    <button>
+                        <i class="fas fa-tachometer-alt" aria-hidden="true"></i>
+                        <span>Panel Principal</span>
+                    </button>
+                </li>
+                <li data-tab="products">
+                    <button>
+                        <i class="fas fa-box" aria-hidden="true"></i>
+                        <span>Productos</span>
+                    </button>
+                </li>
+                <li data-tab="sales">
+                    <button>
+                        <i class="fas fa-shopping-cart" aria-hidden="true"></i>
+                        <span>Ventas</span>
+                    </button>
+                </li>
+                <li data-tab="purchases">
+                    <button>
+                        <i class="fas fa-truck" aria-hidden="true"></i>
+                        <span>Compras</span>
+                    </button>
+                </li>
+                <li data-tab="suppliers">
+                    <button>
+                        <i class="fas fa-building" aria-hidden="true"></i>
+                        <span>Proveedores</span>
+                    </button>
+                </li>
+                <li data-tab="promotions">
+                    <button>
+                        <i class="fas fa-percentage" aria-hidden="true"></i>
+                        <span>Promociones</span>
+                    </button>
+                </li>
+                <li data-tab="users">
+                    <button>
+                        <i class="fas fa-users" aria-hidden="true"></i>
+                        <span>Usuarios</span>
+                    </button>
+                </li>
+                <li data-tab="settings">
+                    <button>
+                        <i class="fas fa-cog" aria-hidden="true"></i>
+                        <span>Configuración</span>
+                    </button>
+                </li>
+            </ul>
+        </nav>
+    </aside>
+
+    <main class="content">
+        <header class="header">
+            <div class="search-bar">
+                <label for="search" class="sr-only">Buscar</label>
+                <input type="search" id="search" placeholder="Buscar...">
+            </div>
+            <div class="user-info" id="user-info">
+                <div class="avatar" aria-label="Perfil de usuario">U</div>
+                <span>Usuario</span>
+            </div>
+        </header>
+
+        <!-- panel principal Seccion -->
+        <section id="dashboard" class="tab-content active">
+            <div class="dashboard-cards">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Ventas Totales</h3>
+                        <i class="fas fa-chart-line" aria-hidden="true"></i>
+                    </div>
+                    <div class="card-value"></div>
+                    <div class="card-description"></div>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Ganancias</h3>
+                        <i class="fas fa-dollar-sign" aria-hidden="true"></i>
+                    </div>
+                    <div class="card-value"></div>
+                    <div class="card-description"></div>
+                </div>
+                <div class="card" id="stockCard">
+                    <div class="card-header">
+                        <h3 class="card-title">Productos</h3>
+                        <i class="fas fa-box" aria-hidden="true"></i>
+                    </div>
+                    <div class="card-value"></div>
+                    <div class="card-description"></div>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Proveedores</h3>
+                        <i class="fas fa-building" aria-hidden="true"></i>
+                    </div>
+                    <div class="card-value"></div>
+                    <div class="card-description"></div>
+                </div>
+            </div>
+
+            <div class="table-section">
+                <h2>Últimas Ventas</h2>
+                <div class="data-table">
+                    <table aria-label="Registro de ventas recientes">
+                        <thead>
+                            <tr>
+                                <th scope="col">Fecha</th>
+                                <th scope="col">Producto</th>
+                                <th scope="col">Cliente</th>
+                                <th scope="col">Monto</th>
+                                <th scope="col">Ganancia</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>02/06/25</td>
+                                <td></td>
+                                <td>4</td>
+                                <td>5</td>
+                                <td>6</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- Productos Seccion -->
+        <section id="products" class="tab-content">
+            <div class="section-header">
+                <h2>Gestión de Productos</h2>
+                <button class="btn btn-primary" data-modal="productModal">
+                    <i class="fas fa-plus" aria-hidden="true"></i> Nuevo Producto
+                </button>
+            </div>
+
+            <div class="tabs" role="tablist">
+                <button class="tab active" role="tab" aria-selected="true" data-subtab="allProducts">
+                    Todos los Productos
+                </button>
+                <button class="tab" role="tab" aria-selected="false" data-subtab="lowStock">
+                    Stock Bajo
+                </button>
+                <button class="tab" role="tab" aria-selected="false" data-subtab="sinTacc">
+                    Sin TACC
+                </button>
+            </div>
+
+            <div id="allProducts" class="subtab-content active" role="tabpanel">
+                <div class="data-table">
+                    <table aria-label="Lista de todos los productos">
+                        <thead>
+                            <tr>
+                                <th scope="col">ID</th>
+                                <th scope="col">Nombre</th>
+                                <th scope="col">Tipo</th>
+                                <th scope="col">Descripción</th>
+                                <th scope="col">Stock</th>
+                                <th scope="col">Proveedor</th>
+                                <th scope="col">Precio Venta</th>
+                                <th scope="col">Precio Costo</th>
+                                <th scope="col">Cantidad por Caja</th>
+                                <th scope="col">Peso</th>
+                                <th scope="col">Acciones</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- ventas Seccion -->
+        <section id="sales" class="tab-content">
+            <div class="section-header">
+                <h2>Registro de Ventas</h2>
+                <button class="btn btn-primary" data-modal="saleModal">
+                    <i class="fas fa-plus" aria-hidden="true"></i> Nueva Venta
+                </button>
+            </div>
+
+            <div class="tabs" role="tablist">
+                <button class="tab active" role="tab" aria-selected="true" data-subtab="allSales">
+                    Todas las Ventas
+                </button>
+                <button class="tab" role="tab" aria-selected="false" data-subtab="dailySales">
+                    Ventas Diarias
+                </button>
+                <button class="tab" role="tab" aria-selected="false" data-subtab="monthlySales">
+                    Ventas Mensuales
+                </button>
+            </div>
+
+            <div id="allSales" class="subtab-content active" role="tabpanel">
+                <div class="data-table">
+                    <table aria-label="Todas las ventas">
+                        <thead>
+                            <tr>
+                                <th scope="col">ID</th>
+                                <th scope="col">Fecha</th>
+                                <th scope="col">Producto</th>
+                                <th scope="col">Cliente</th>
+                                <th scope="col">Monto</th>
+                                <th scope="col">Ganancia</th>
+                                <th scope="col">Usuario</th>
+                                <th scope="col">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>08/04/2025</td>
+                                <td>Producto A</td>
+                                <td>Juan Pérez</td>
+                                <td>$150,00</td>
+                                <td>$45,00</td>
+                                <td>admin</td>
+                                <td class="action-buttons">
+                                    <button class="btn btn-outline" aria-label="Ver detalles de venta 1">
+                                        <i class="fas fa-eye" aria-hidden="true"></i>
+                                    </button>
+                                    <button class="btn btn-outline" aria-label="Imprimir factura de venta 1">
+                                        <i class="fas fa-print" aria-hidden="true"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>07/04/2025</td>
+                                <td>Producto B</td>
+                                <td>María López</td>
+                                <td>$250,00</td>
+                                <td>$75,00</td>
+                                <td>admin</td>
+                                <td class="action-buttons">
+                                    <button class="btn btn-outline" aria-label="Ver detalles de venta 2">
+                                        <i class="fas fa-eye" aria-hidden="true"></i>
+                                    </button>
+                                    <button class="btn btn-outline" aria-label="Imprimir factura de venta 2">
+                                        <i class="fas fa-print" aria-hidden="true"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div id="dailySales" class="subtab-content" role="tabpanel">
+            </div>
+
+            <div id="monthlySales" class="subtab-content" role="tabpanel">
+            </div>
+        </section>
+
+        <!-- Compras Seccion -->
+        <section id="purchases" class="tab-content">
+            <div class="section-header">
+                <h2>Registro de Compras</h2>
+                <button class="btn btn-primary" data-modal="purchaseModal">
+                    <i class="fas fa-plus" aria-hidden="true"></i> Nueva Compra
+                </button>
+            </div>
+
+            <div class="data-table">
+                <table aria-label="Registro de compras">
+                    <thead>
+                        <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">Fecha</th>
+                            <th scope="col">Proveedor</th>
+                            <th scope="col">Producto</th>
+                            <th scope="col">Monto</th>
+                            <th scope="col">Estado de Pago</th>
+                            <th scope="col">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>05/04/2025</td>
+                            <td>Proveedor A</td>
+                            <td>Producto A</td>
+                            <td>$900,00</td>
+                            <td>Pagado</td>
+                            <td class="action-buttons">
+                                <button class="btn btn-outline" aria-label="Ver detalles de compra 1">
+                                    <i class="fas fa-eye" aria-hidden="true"></i>
+                                </button>
+                                <button class="btn btn-outline" aria-label="Editar compra 1">
+                                    <i class="fas fa-edit" aria-hidden="true"></i>
+                                </button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>03/04/2025</td>
+                            <td>Proveedor B</td>
+                            <td>Producto B</td>
+                            <td>$1.500,00</td>
+                            <td>Pendiente</td>
+                            <td class="action-buttons">
+                                <button class="btn btn-outline" aria-label="Ver detalles de compra 2">
+                                    <i class="fas fa-eye" aria-hidden="true"></i>
+                                </button>
+                                <button class="btn btn-outline" aria-label="Editar compra 2">
+                                    <i class="fas fa-edit" aria-hidden="true"></i>
+                                </button>
+                                <button class="btn btn-primary" aria-label="Marcar compra 2 como pagada">
+                                    Marcar como Pagado
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Provedores Seccion -->
+        <section id="suppliers" class="tab-content">
+            <div class="section-header">
+                <h2>Gestión de Proveedores</h2>
+                <button class="btn btn-primary" data-modal="supplierModal">
+                    <i class="fas fa-plus" aria-hidden="true"></i> Nuevo Proveedor
+                </button>
+            </div>
+
+            <div class="data-table">
+                <table aria-label="Lista de proveedores">
+                    <thead>
+                        <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Información de Contacto</th>
+                            <th scope="col">Fecha de Registro</th>
+                            <th scope="col">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>Proveedor A</td>
+                            <td>contacto@proveedora.com | 555-123-4567</td>
+                            <td>01/02/2025</td>
+                            <td class="action-buttons">
+                                <button class="btn btn-outline" aria-label="Editar Proveedor A">
+                                    <i class="fas fa-edit" aria-hidden="true"></i>
+                                </button>
+                                <button class="btn btn-secondary" aria-label="Eliminar Proveedor A">
+                                    <i class="fas fa-trash" aria-hidden="true"></i>
+                                </button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>Proveedor B</td>
+                            <td>contacto@proveedorb.com | 555-765-4321</td>
+                            <td>15/02/2025</td>
+                            <td class="action-buttons">
+                                <button class="btn btn-outline" aria-label="Editar Proveedor B">
+                                    <i class="fas fa-edit" aria-hidden="true"></i>
+                                </button>
+                                <button class="btn btn-secondary" aria-label="Eliminar Proveedor B">
+                                    <i class="fas fa-trash" aria-hidden="true"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Promociones Seccion -->
+        <section id="promotions" class="tab-content">
+            <div class="section-header">
+                <h2>Gestión de Promociones</h2>
+                <button class="btn btn-primary" data-modal="promotionModal">
+                    <i class="fas fa-plus" aria-hidden="true"></i> Nueva Promoción
+                </button>
+            </div>
+
+            <div class="tabs" role="tablist">
+                <button class="tab active" role="tab" aria-selected="true" data-subtab="activePromotions">
+                    Promociones Activas
+                </button>
+                <button class="tab" role="tab" aria-selected="false" data-subtab="upcomingPromotions">
+                    Próximas Promociones
+                </button>
+                <button class="tab" role="tab" aria-selected="false" data-subtab="expiredPromotions">
+                    Promociones Vencidas
+                </button>
+            </div>
+
+            <div id="activePromotions" class="subtab-content active" role="tabpanel">
+                <div class="data-table">
+                    <table aria-label="Promociones activas">
+                        <thead>
+                            <tr>
+                                <th scope="col">ID</th>
+                                <th scope="col">Producto</th>
+                                <th scope="col">Descripción</th>
+                                <th scope="col">Descuento</th>
+                                <th scope="col">Fecha Inicio</th>
+                                <th scope="col">Fecha Fin</th>
+                                <th scope="col">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>Producto A</td>
+                                <td>Oferta de Lanzamiento</td>
+                                <td>15%</td>
+                                <td>01/04/2025</td>
+                                <td>15/04/2025</td>
+                                <td class="action-buttons">
+                                    <button class="btn btn-outline" aria-label="Editar promoción 1">
+                                        <i class="fas fa-edit" aria-hidden="true"></i>
+                                    </button>
+                                    <button class="btn btn-secondary" aria-label="Eliminar promoción 1">
+                                        <i class="fas fa-trash" aria-hidden="true"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>Producto B</td>
+                                <td>Promoción Semanal</td>
+                                <td>10%</td>
+                                <td>05/04/2025</td>
+                                <td>12/04/2025</td>
+                                <td class="action-buttons">
+                                    <button class="btn btn-outline" aria-label="Editar promoción 2">
+                                        <i class="fas fa-edit" aria-hidden="true"></i>
+                                    </button>
+                                    <button class="btn btn-secondary" aria-label="Eliminar promoción 2">
+                                        <i class="fas fa-trash" aria-hidden="true"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- Usuarios Seccion -->
+        <section id="users" class="tab-content">
+            <div class="section-header">
+                <h2>Gestión de Usuarios</h2>
+                <button class="btn btn-primary" data-modal="userModal">
+                    <i class="fas fa-plus" aria-hidden="true"></i> Nuevo Usuario
+                </button>
+            </div>
+
+            <div class="data-table">
+                <table aria-label="Lista de usuarios">
+                    <thead>
+                        <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">Nombre de Usuario</th>
+                            <th scope="col">Fecha de Registro</th>
+                            <th scope="col">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="usersTable">
+
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Configuracion Seccion -->
+        <section id="settings" class="tab-content">
+            <div class="section-header">
+                <h2>Configuración del Sistema</h2>
+            </div>
+
+            <div class="settings-form">
+                <div class="form-group">
+                    <label for="businessName">Nombre del Negocio</label>
+                    <input type="text" id="businessName" value="Mi Negocio">
+                </div>
+
+                <div class="form-group">
+                    <label for="businessEmail">Email del Negocio</label>
+                    <input type="email" id="businessEmail" value="contacto@minegocio.com">
+                </div>
+
+                <div class="form-group">
+                    <label for="taxRate">Tasa de Impuestos (%)</label>
+                    <input type="number" id="taxRate" value="21">
+                </div>
+
+                <div class="form-group checkbox-group">
+                    <input type="checkbox" id="emailNotifications" checked>
+                    <label for="emailNotifications">Activar notificaciones por email</label>
+                </div>
+
+                <div class="form-group checkbox-group">
+                    <input type="checkbox" id="lowStockAlerts" checked>
+                    <label for="lowStockAlerts">Alertas de stock bajo</label>
+                </div>
+
+                <div class="form-group">
+                    <label for="lowStockThreshold">Umbral de stock bajo</label>
+                    <input type="number" id="lowStockThreshold" value="10">
+                </div>
+
+                <div class="form-actions">
+                    <button class="btn btn-primary">Guardar Cambios</button>
+                    <button class="btn btn-outline">Restaurar Valores Predeterminados</button>
+                </div>
+            </div>
+            <!--ComboBox para cambiar los temas-->
+            <div class="form-group">
+                <label for="themeSelector">Seleccionar Tema</label>
+                <select id="themeSelector">
+                    <option value="ThemeDark">Tema Oscuro Predeterminado</option>
+                    <option value="theme-vintage">Tema Vintage</option>
+                    <option value="ThemeDarkForest">Tema Bosque Oscuro</option>
+                    <option value="ThemeDarkOcean">Tema Océano Oscuro</option>
+                    <option value="ThemeDarkTech">Tema Tecnológico</option>
+                    <option value="ThemeLightPastel">Tema Pastel Claro</option>
+                </select>
+            </div>
+            <div class="form-actions">
+                <button class="btn btn-primary" id="ChangeUser">Iniciar con otro usuario</button>
+            </div>
+
+        </section>
+    </main>
+
+    <!-- Modal para añadir nuevo producto -->
+    <div id="productModal" class="modal" aria-labelledby="productModalTitle" aria-modal="true" role="dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="productModalTitle">Añadir Nuevo Producto</h2>
+                <button class="close-modal" aria-label="Cerrar">
+                    <i class="fas fa-times" aria-hidden="true"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="productForm">
+                    <div class="form-group">
+                        <label for="productName">Nombre del Producto</label>
+                        <input type="text" id="productName" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="productType">Tipo de Producto</label>
+                        <select id="productType" required>
+                            <option value="">Seleccionar...</option>
+                            <option value="alimento">Alimento</option>
+                            <option value="bebida">Bebida</option>
+                            <option value="limpieza">Limpieza</option>
+                            <option value="otros">Otros</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="productDescription">Descripción</label>
+                        <textarea id="productDescription" rows="3"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="location">Proveedor del Producto</label>
+                        <select id="productLocation" required>
+                            <option value="">Seleccionar...</option>
+                            <option value="proveedor1">Proveedor 1</option>
+                            <option value="proveedor2">Proveedor 2</option>
+                            <option value="proveedor3">Proveedor 3</option>
+                        </select>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group half">
+                            <label for="productStock">Stock Inicial</label>
+                            <input type="number" id="productStock" min="0" required>
+                        </div>
+                        <div class="form-group half">
+                            <label for="productBoxQuantity">Cantidad por Caja</label>
+                            <input type="number" id="productBoxQuantity" min="0">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="productWeight">Peso por unidad (ej: 1kg, 500g)</label>
+                        <input type="text" id="productWeight">
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group half">
+                            <label for="productCost">Precio de Costo</label>
+                            <input type="number" id="productCost" min="0" step="0.01" required>
+                        </div>
+                        <div class="form-group half">
+                            <label for="productPrice">Precio de Venta</label>
+                            <input type="number" id="productPrice" min="0" step="0.01" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group checkbox-group">
+                        <input type="checkbox" id="productGlutenFree">
+                        <label for="productGlutenFree">Sin TACC</label>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">Guardar Producto</button>
+                        <button type="button" class="btn btn-outline close-modal"
+                            onclick="closeModal(this.closest('.modal'))">Cancelar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Modal de Nueva Venta -->
+    <div id="saleModal" class="modal" aria-labelledby="saleModalTitle" aria-modal="true" role="dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="saleModalTitle">Registrar Nueva Venta</h2>
+                <button class="close-modal" aria-label="Cerrar">
+                    <i class="fas fa-times" aria-hidden="true"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="saleForm">
+                    <div class="form-group">
+                        <label for="saleDate">Fecha</label>
+                        <input type="date" id="saleDate" required value="2025-04-10">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="saleProduct">Producto</label>
+                        <select id="saleProduct" required>
+                            <option value="">Seleccionar...</option>
+                            <option value="1">Producto A</option>
+                            <option value="2">Producto B</option>
+                            <option value="3">Producto C</option>
+                            <option value="6">Producto F (Sin TACC)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="saleQuantity">Cantidad</label>
+                        <input type="number" id="saleQuantity" min="1" value="1" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="saleClient">Cliente</label>
+                        <input type="text" id="saleClient" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="salePrice">Precio Unitario</label>
+                        <input type="number" id="salePrice" min="0" step="0.01" required readonly>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="saleDiscount">Descuento (%)</label>
+                        <input type="number" id="saleDiscount" min="0" max="100" value="0" step="0.5">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="saleTotal">Total</label>
+                        <input type="number" id="saleTotal" min="0" step="0.01" readonly>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="salePaymentMethod">Método de Pago</label>
+                        <select id="salePaymentMethod" required>
+                            <option value="efectivo">Efectivo</option>
+                            <option value="tarjeta">Tarjeta de Crédito/Débito</option>
+                            <option value="transferencia">Transferencia Bancaria</option>
+                        </select>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">Registrar Venta</button>
+                        <button type="button" class="btn btn-outline close-modal"
+                            onclick="closeModal(this.closest('.modal'))">Cancelar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Nueva Compra -->
+    <div id="purchaseModal" class="modal" aria-labelledby="purchaseModalTitle" aria-modal="true" role="dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="purchaseModalTitle">Registrar Nueva Compra</h2>
+                <button class="close-modal" aria-label="Cerrar">
+                    <i class="fas fa-times" aria-hidden="true"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="purchaseForm">
+                    <div class="form-group">
+                        <label for="purchaseDate">Fecha</label>
+                        <input type="date" id="purchaseDate" required value="2025-04-10">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="purchaseSupplier">Proveedor</label>
+                        <select id="purchaseSupplier" required>
+                            <option value="">Seleccionar...</option>
+                            <option value="1">Proveedor A</option>
+                            <option value="2">Proveedor B</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="purchaseProduct">Producto</label>
+                        <select id="purchaseProduct" required>
+                            <option value="">Seleccionar...</option>
+                            <option value="1">Producto A</option>
+                            <option value="2">Producto B</option>
+                            <option value="3">Producto C</option>
+                            <option value="4">Producto D</option>
+                            <option value="5">Producto E</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="purchaseQuantity">Cantidad</label>
+                        <input type="number" id="purchaseQuantity" min="1" value="1" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="purchasePrice">Precio Unitario</label>
+                        <input type="number" id="purchasePrice" min="0" step="0.01" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="purchaseTotal">Total</label>
+                        <input type="number" id="purchaseTotal" min="0" step="0.01" readonly>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="purchasePaymentStatus">Estado de Pago</label>
+                        <select id="purchasePaymentStatus" required>
+                            <option value="pagado">Pagado</option>
+                            <option value="pendiente">Pendiente</option>
+                        </select>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">Registrar Compra</button>
+                        <button type="button" class="btn btn-outline close-modal"
+                            onclick="closeModal(this.closest('.modal'))">Cancelar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Nuevo Proveedor -->
+    <div id="supplierModal" class="modal" aria-labelledby="supplierModalTitle" aria-modal="true" role="dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="supplierModalTitle">Añadir Nuevo Proveedor</h2>
+                <button class="close-modal" aria-label="Cerrar">
+                    <i class="fas fa-times" aria-hidden="true"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="supplierForm">
+                    <div class="form-group">
+                        <label for="supplierName">Nombre del Proveedor</label>
+                        <input type="text" id="supplierName" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="supplierPhone">Teléfono</label>
+                        <input type="tel" id="supplierPhone" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="supplierAddress">Dirección</label>
+                        <input type="text" id="supplierAddress">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="supplierDescription">Descripción</label>
+                        <textarea id="supplierDescription" rows="3"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="supplierCategories">Categorías de Productos</label>
+                        <select id="supplierCategories" multiple>
+                            <option value="alimento">Alimentos</option>
+                            <option value="bebida">Bebidas</option>
+                            <option value="otros">Otros</option>
+                        </select>
+                        <small>Mantenga presionada la tecla Ctrl para seleccionar múltiples categorías</small>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">Guardar Proveedor</button>
+                        <button type="button" class="btn btn-outline close-modal"
+                            onclick="closeModal(this.closest('.modal'))">Cancelar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Nueva Promoción -->
+    <div id="promotionModal" class="modal" aria-labelledby="promotionModalTitle" aria-modal="true" role="dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="promotionModalTitle">Crear Nueva Promoción</h2>
+                <button class="close-modal" aria-label="Cerrar">
+                    <i class="fas fa-times" aria-hidden="true"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="promotionForm">
+                    <div class="form-group">
+                        <label for="promotionProduct">Producto</label>
+                        <select id="promotionProduct" required>
+                            <option value="">Seleccionar...</option>
+                            <option value="1">Producto A</option>
+                            <option value="2">Producto B</option>
+                            <option value="3">Producto C</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="promotionDescription">Descripción</label>
+                        <input type="text" id="promotionDescription" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="promotionDiscount">Descuento (%)</label>
+                        <input type="number" id="promotionDiscount" min="1" max="100" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="promotionStartDate">Fecha de Inicio</label>
+                        <input type="date" id="promotionStartDate" required value="2025-04-10">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="promotionEndDate">Fecha de Fin</label>
+                        <input type="date" id="promotionEndDate" required>
+                    </div>
+
+                    <div class="form-group checkbox-group">
+                        <input type="checkbox" id="promotionActive" checked>
+                        <label for="promotionActive">Promoción Activa</label>
+                    </div>
+
+                    <div class="form-group checkbox-group">
+                        <input type="checkbox" id="promotionFeatured">
+                        <label for="promotionFeatured">Promoción Destacada</label>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">Guardar Promoción</button>
+                        <button type="button" class="btn btn-outline close-modal"
+                            onclick="closeModal(this.closest('.modal'))">Cancelar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Nuevo Usuario -->
+    <div id="userModal" class="modal" aria-labelledby="userModalTitle" aria-modal="true" role="dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="userModalTitle">Añadir Nuevo Usuario</h2>
+                <button class="close-modal">
+                    <i class="fas fa-times" aria-hidden="true"></i>
+                    Cerrar
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="userForm">
+                    <div class="form-group">
+                        <label for="username">Nombre de Usuario</label>
+                        <input type="text" id="username" required>
+                        <small class="error-message" id="errorUsername"></small>
+                    </div>
+
+                    <div class="form-group password-group">
+                        <label for="userPassword">Contraseña</label>
+                        <div class="password-wrapper">
+                            <input type="password" id="userPassword" required>
+                            <i class="fas fa-eye toggle-password" data-target="userPassword"
+                                aria-label="Mostrar contraseña"></i>
+                        </div>
+                        <small class="error-message" id="errorPassword"></small>
+                    </div>
+
+                    <div class="form-group password-group">
+                        <label for="userPasswordConfirm">Confirmar Contraseña</label>
+                        <div class="password-wrapper">
+                            <input type="password" id="userPasswordConfirm" required>
+                            <i class="fas fa-eye toggle-password" data-target="userPasswordConfirm"
+                                aria-label="Mostrar contraseña"></i>
+                        </div>
+                        <small class="error-message" id="errorConfirm"></small>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="userRole">Rol</label>
+                        <select id="userRole" required>
+                            <option value="">Selecciona un rol</option>
+                            <option value="Administrador">Administrador</option>
+                            <option value="Vendedor">Vendedor</option>
+                            <option value="Gestor de Inventario">Gestor de Inventario</option>
+                        </select>
+                        <small class="error-message" id="errorRole"></small>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">Guardar Usuario</button>
+                        <button type="button" class="btn btn-outline close-modal"
+                            onclick="closeModal(this.closest('.modal'))">Cancelar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para editar usuarios -->
+    <div id="editUserModal" class="modal edit-user-modal" style="display: none;">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>Editar Usuario</h2>
+            <form id="editUserForm">
+                <input type="hidden" id="editUserId">
+
+                <div class="form-group">
+                    <label for="editUsername">Nombre de usuario:</label>
+                    <input type="text" id="editUsername" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="editPassword">Contraseña (dejar en blanco para mantener la actual):</label>
+                    <input type="password" id="editPassword">
+                </div>
+
+                <div class="form-group">
+                    <label for="editUserRole">Rol:</label>
+                    <select id="editUserRole">
+                        <option value="Administrador">Administrador</option>
+                        <option value="Vendedor">Vendedor</option>
+                        <option value="Gestor de Inventario">Gestor de Inventario</option>
+                    </select>
+                </div>
+
+                <div class="form-actions">
+                    <button type="button" id="cancelEdit" class="btn btn-secondary"
+                        onclick="closeModal(this.closest('.modal'))">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+
+
+
+
+    <!-- Modal para editar productos -->
+    <div id="editProductModal" class="modal" aria-labelledby="editProductModalTitle" aria-modal="true" role="dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="editProductModalTitle">Editar Producto</h2>
+                <button class="close-modal" aria-label="Cerrar" onclick="closeModal()">
+                    <i class="fas fa-times" aria-hidden="true"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="editProductForm">
+                    <input type="hidden" id="editProductId">
+
+                    <div class="form-group">
+                        <label for="editProductName">Nombre del Producto</label>
+                        <input type="text" id="editProductName" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="editProductType">Tipo de Producto</label>
+                        <select id="editProductType" required>
+                            <option value="">Seleccionar...</option>
+                            <option value="alimento">Alimento</option>
+                            <option value="bebida">Bebida</option>
+                            <option value="limpieza">Limpieza</option>
+                            <option value="otros">Otros</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="editProductDescription">Descripción</label>
+                        <textarea id="editProductDescription" rows="3"></textarea>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group half">
+                            <label for="editProductStock">Stock</label>
+                            <input type="number" id="editProductStock" min="0" required>
+                        </div>
+                        <div class="form-group half">
+                            <label for="editProductLocation">Proveedor</label>
+                            <select id="editProductLocation" required>
+                                <option value="">Seleccionar...</option>
+                                <option value="proveedor1">Proveedor 1</option>
+                                <option value="proveedor2">Proveedor 2</option>
+                                <option value="proveedor3">Proveedor 3</option>
+                            </select>
+                        </div>
+                        <div class="form-group half">
+                            <label for="editProductBoxQuantity">Cantidad por Caja</label>
+                            <input type="number" id="editProductBoxQuantity" min="0">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="editProductWeight">Peso por unidad (ej: 500g, 1kg)</label>
+                        <input type="text" id="editProductWeight">
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group half">
+                            <label for="editProductCost">Precio de Costo</label>
+                            <input type="number" id="editProductCost" min="0" step="0.01" required>
+                        </div>
+                        <div class="form-group half">
+                            <label for="editProductPrice">Precio de Venta</label>
+                            <input type="number" id="editProductPrice" min="0" step="0.01" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group checkbox-group">
+                        <input type="checkbox" id="editProductGlutenFree">
+                        <label for="editProductGlutenFree">Sin TACC</label>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                        <button type="button" class="btn btn-outline"
+                            onclick="closeModal(this.closest('.modal'))">Cancelar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+    <!--Modal para mensajes de alerta-->
+    <div id="deleteConfirmModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Confirmar eliminación</h2>
+                <span class="close-modal">&times;</span>
+            </div>
+            <div class="modal-body">
+                <p>¿Estás seguro que deseas eliminar este usuario?</p>
+            </div>
+            <div class="modal-footer">
+                <button id="cancelDeleteBtn" class="btn btn-secondary">Cancelar</button>
+                <button id="confirmDeleteBtn" class="btn btn-danger">Eliminar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal universal para mensajes y confirmaciones -->
+    <div id="universalModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="universalModalTitle">Mensaje</h2>
+                <span class="close-modal">&times;</span>
+            </div>
+            <div class="modal-body">
+                <p id="universalModalMessage">Contenido del mensaje</p>
+            </div>
+            <div class="modal-footer" id="universalModalFooter">
+                <button id="universalModalDefaultBtn" class="btn btn-primary">Aceptar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Inicio de Sección -->
+    <div class="modal" id="selectUserModal">
+        <div class="modal-content">
+            <h2>Seleccionar Usuario</h2>
+            <div class="select-container">
+                <label for="userSelector">Selecciona un usuario:</label>
+                <select id="userSelector" class="form-control">
+                </select>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" id="selectUserBtn">Entrar</button>
+                <button class="btn btn-outline close-modal" id="createUserBtn">Crear nuevo usuario</button>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
