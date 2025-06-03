@@ -319,6 +319,10 @@ body {
   position: relative;
 }
 
+#search {
+  padding-left: 13%;
+}
+
 .search-bar input {
   padding: 8px 15px 8px 35px;
   border-radius: var(--border-radius);
@@ -709,6 +713,7 @@ textarea:focus {
   border-radius: var(--border-radius);
   width: 100%;
   max-width: 600px;
+  margin-top: auto;
   box-shadow: var(--shadow-strong);
   animation: modalFade 0.3s ease;
 }

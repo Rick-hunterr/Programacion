@@ -305,32 +305,6 @@ function setupThemeSelector() {
 // ==========================================
 // Función para mostrar/ocultar contraseña
 // ==========================================
-function togglePassword() {
-    const passwordInput = document.getElementById('userPassword');
-    const eyesIcon = document.querySelector('[data-target="userPassword"]'); // Selector específico
-    
-    if (!passwordInput) return;
-    
-    if (passwordInput.type === 'password') {
-        passwordInput.type = 'text';
-        if (eyesIcon) {
-            eyesIcon.classList.remove('fa-eye');
-            eyesIcon.classList.add('fa-eye-slash');
-            eyesIcon.setAttribute('aria-label', 'Ocultar contraseña');
-        }
-    } else {
-        passwordInput.type = 'password';
-        if (eyesIcon) {
-            eyesIcon.classList.remove('fa-eye-slash');
-            eyesIcon.classList.add('fa-eye');
-            eyesIcon.setAttribute('aria-label', 'Mostrar contraseña');
-        }
-    }
-}
-
-// ==========================================
-// Función para confirmar contraseña
-// ==========================================
 function togglePassword(inputId) {
     const passwordInput = document.getElementById(inputId);
     const eyeIcon = inputId === 'userPassword' ? 
