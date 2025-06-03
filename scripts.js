@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // ==========================================
   setupUIComponents();
   setupThemeSelector();
+  setupPasswordToggles(); // Agregar aquí
   switchTab('dashboard');
 });
 
@@ -31,9 +32,6 @@ function handleBeforeUnload(e) {
   e.preventDefault();
   e.returnValue = '¿Está seguro que desea salir?';
 }
-
-
-
 
 // ==========================================
 // Configuración de navegación en sidebar
@@ -73,7 +71,13 @@ function setupModals() {
   modalTriggers.forEach(trigger => {
     trigger.addEventListener('click', function () {
       const modalId = this.getAttribute('data-modal');
-      openModal(document.getElementById(modalId));
+      const modal = document.getElementById(modalId);
+      openModal(modal);
+      
+      // Re-inicializar toggles cuando se abre el modal
+      setTimeout(() => {
+        setupPasswordToggles();
+      }, 100);
     });
   });
 
@@ -296,4 +300,52 @@ function setupThemeSelector() {
     body.className = selectedTheme;
     localStorage.setItem('selectedTheme', selectedTheme);
   });
+}
+
+// ==========================================
+// Función para mostrar/ocultar contraseña
+// ==========================================
+function togglePassword() {
+    const passwordInput = document.getElementById('userPassword');
+    const eyesIcon = document.querySelector('[data-target="userPassword"]'); // Selector específico
+    
+    if (!passwordInput) return;
+    
+    if (passwordInput.type === 'password') {
+        passwordInput.type = 'text';
+        if (eyesIcon) {
+            eyesIcon.classList.remove('fa-eye');
+            eyesIcon.classList.add('fa-eye-slash');
+            eyesIcon.setAttribute('aria-label', 'Ocultar contraseña');
+        }
+    } else {
+        passwordInput.type = 'password';
+        if (eyesIcon) {
+            eyesIcon.classList.remove('fa-eye-slash');
+            eyesIcon.classList.add('fa-eye');
+            eyesIcon.setAttribute('aria-label', 'Mostrar contraseña');
+        }
+    }
+}
+
+// ==========================================
+// Función para confirmar contraseña
+// ==========================================
+function togglePassword(inputId) {
+    const passwordInput = document.getElementById(inputId);
+    const eyeIcon = inputId === 'userPassword' ? 
+        document.getElementById('eyeIcon') : 
+        document.getElementById('eyeIcon2');
+    
+    if (passwordInput.type === 'password') {
+        passwordInput.type = 'text';
+        eyeIcon.classList.remove('fa-eye');
+        eyeIcon.classList.add('fa-eye-slash');
+        eyeIcon.setAttribute('aria-label', 'Ocultar contraseña');
+    } else {
+        passwordInput.type = 'password';
+        eyeIcon.classList.remove('fa-eye-slash');
+        eyeIcon.classList.add('fa-eye');
+        eyeIcon.setAttribute('aria-label', 'Mostrar contraseña');
+    }
 }
